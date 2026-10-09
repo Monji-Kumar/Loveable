@@ -1,4 +1,4 @@
-package com.monji.projects.lovable_clone.entity;
+package com.monji.projects.lovable_clone.entity.project;
 
 public class ProjectMemberId {
     Long projectId;

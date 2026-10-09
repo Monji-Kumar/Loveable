@@ -1,5 +1,6 @@
-package com.monji.projects.lovable_clone.entity;
+package com.monji.projects.lovable_clone.entity.preview;
 
+import com.monji.projects.lovable_clone.entity.project.Project;
 import com.monji.projects.lovable_clone.enums.PreviewStatus;
 import lombok.AccessLevel;
 import lombok.Getter;

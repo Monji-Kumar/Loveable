@@ -1,4 +1,4 @@
-package com.monji.projects.lovable_clone.entity;
+package com.monji.projects.lovable_clone.entity.plan;
 
 import lombok.AccessLevel;
 import lombok.Getter;

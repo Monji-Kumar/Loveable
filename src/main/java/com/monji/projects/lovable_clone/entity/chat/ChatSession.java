@@ -1,5 +1,7 @@
-package com.monji.projects.lovable_clone.entity;
+package com.monji.projects.lovable_clone.entity.chat;
 
+import com.monji.projects.lovable_clone.entity.project.Project;
+import com.monji.projects.lovable_clone.entity.user.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

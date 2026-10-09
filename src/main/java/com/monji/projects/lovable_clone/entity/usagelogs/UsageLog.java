@@ -1,4 +1,7 @@
-package com.monji.projects.lovable_clone.entity;
+package com.monji.projects.lovable_clone.entity.usagelogs;
+
+import com.monji.projects.lovable_clone.entity.project.Project;
+import com.monji.projects.lovable_clone.entity.user.User;
 
 import java.time.Instant;
 

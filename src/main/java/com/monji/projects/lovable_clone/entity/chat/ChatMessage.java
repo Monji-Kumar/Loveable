@@ -1,4 +1,4 @@
-package com.monji.projects.lovable_clone.entity;
+package com.monji.projects.lovable_clone.entity.chat;
 
 import com.monji.projects.lovable_clone.enums.MessageRole;
 import lombok.AccessLevel;

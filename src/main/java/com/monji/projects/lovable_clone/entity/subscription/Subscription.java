@@ -1,5 +1,7 @@
-package com.monji.projects.lovable_clone.entity;
+package com.monji.projects.lovable_clone.entity.subscription;
 
+import com.monji.projects.lovable_clone.entity.plan.Plan;
+import com.monji.projects.lovable_clone.entity.user.User;
 import com.monji.projects.lovable_clone.enums.SubscriptionStatus;
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,5 +1,6 @@
-package com.monji.projects.lovable_clone.entity;
+package com.monji.projects.lovable_clone.entity.project;
 
+import com.monji.projects.lovable_clone.entity.user.User;
 import com.monji.projects.lovable_clone.enums.ProjectRole;
 
 import java.time.Instant;
