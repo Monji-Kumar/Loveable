@@ -2,8 +2,8 @@ package com.monji.projects.lovable_clone.dto.usage;
 
 public record PlanLimitsResponse(
         String planName,
-        int maxTokensPerDay,
-        int maxProjects,
+        Integer maxTokensPerDay,
+        Integer maxProjects,
         boolean unlimitedAi
 ) {
 }

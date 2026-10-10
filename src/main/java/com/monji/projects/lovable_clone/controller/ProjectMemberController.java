@@ -3,7 +3,6 @@ package com.monji.projects.lovable_clone.controller;
 import com.monji.projects.lovable_clone.dto.member.InviteMemberRequest;
 import com.monji.projects.lovable_clone.dto.member.MemberResponse;
 import com.monji.projects.lovable_clone.dto.member.UpdateMemberRoleRequest;
-import com.monji.projects.lovable_clone.entity.project.ProjectMember;
 import com.monji.projects.lovable_clone.service.ProjectMemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +21,7 @@ public class ProjectMemberController {
     private final ProjectMemberService projectMemberService;
 
     @GetMapping
-    public ResponseEntity<List<ProjectMember>> getMembers(@PathVariable Long projectId) {
+    public ResponseEntity<List<MemberResponse>> getMembers(@PathVariable Long projectId) {
         Long userId = 1L;
         return ResponseEntity.ok(projectMemberService.getAllProjectMembers(userId, projectId));
     }
@@ -41,7 +40,7 @@ public class ProjectMemberController {
     }
 
     @DeleteMapping(value = "delete-member")
-    public ResponseEntity<MemberResponse> updateMemberRole(@PathVariable Long projectId, @RequestParam Long memberId) {
+    public ResponseEntity<MemberResponse> deleteMemberRole(@PathVariable Long projectId, @RequestParam Long memberId) {
         Long userId = 1L;
         return ResponseEntity.ok(projectMemberService.deleteProjectMember(userId, memberId, projectId));
     }
