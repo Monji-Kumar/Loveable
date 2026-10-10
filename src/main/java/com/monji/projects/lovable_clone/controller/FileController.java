@@ -21,13 +21,11 @@ public class FileController {
 
     @GetMapping(value = "/all")
     public ResponseEntity<List<FileNode>> getFileTree(@PathVariable Long projectId) {
-        Long userId = 1L;
-        return ResponseEntity.ok(fileService.getFileTree(userId, projectId));
+        return ResponseEntity.ok(fileService.getFileTree(projectId));
     }
 
     @GetMapping(value = "/{*path}")
     public ResponseEntity<FileContentResponse> getFile(@PathVariable Long projectId, @PathVariable String path) {
-        Long userId = 1L;
-        return ResponseEntity.ok(fileService.getFileContent(userId, projectId, path));
+        return ResponseEntity.ok(fileService.getFileContent(projectId, path));
     }
 }

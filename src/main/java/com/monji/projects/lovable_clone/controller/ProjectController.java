@@ -1,5 +1,6 @@
 package com.monji.projects.lovable_clone.controller;
 
+import com.monji.projects.lovable_clone.dto.deploy.DeployResponse;
 import com.monji.projects.lovable_clone.dto.project.ProjectRequest;
 import com.monji.projects.lovable_clone.dto.project.ProjectResponse;
 import com.monji.projects.lovable_clone.dto.project.ProjectSummaryResponse;
@@ -17,35 +18,36 @@ import java.util.List;
 public class ProjectController {
 
     private final ProjectService projectService;
+    private final DeploymentService deploymentService;
 
     @GetMapping(value = "get-my-projects")
     public ResponseEntity<List<ProjectSummaryResponse>> getProjects() {
-        Long userId = 1L;
-        return ResponseEntity.ok(projectService.getAllProjects(userId));
+        return ResponseEntity.ok(projectService.getAllProjects());
     }
 
     @GetMapping(value = "get-project")
-    public ResponseEntity<ProjectResponse> getProjectById(@RequestParam Long id) {
-        Long userId = 1L;
-        return ResponseEntity.ok(projectService.getUserProjectById(userId, id));
+    public ResponseEntity<ProjectResponse> getUserProjectById(@RequestParam Long id) {
+        return ResponseEntity.ok(projectService.getUserProjectById(id));
     }
 
     @PostMapping(value = "create-project")
     public ResponseEntity<ProjectResponse> createProject(@RequestBody ProjectRequest projectRequest) {
-        Long userId = 1L;
-        return ResponseEntity.status(HttpStatus.CREATED).body(projectService.createUserProject(userId, projectRequest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(projectService.createUserProject(projectRequest));
     }
 
     @PatchMapping(value = "update-project")
-    public ResponseEntity<ProjectResponse> createProject(@RequestParam Long id, @RequestBody ProjectRequest projectRequest) {
-        Long userId = 1L;
-        return ResponseEntity.status(HttpStatus.CREATED).body(projectService.updateUserProject(userId, id, projectRequest));
+    public ResponseEntity<ProjectResponse> updateProject(@RequestParam Long id, @RequestBody ProjectRequest projectRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(projectService.updateUserProject(id, projectRequest));
     }
 
     @DeleteMapping(value = "delete-project")
     public ResponseEntity<ProjectResponse> deleteProject(@RequestParam Long id) {
-        Long userId = 1L;
-        projectService.deleteUserProject(userId, id);
+        projectService.softDelete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/deploy")
+    public ResponseEntity<DeployResponse> deployProject(@PathVariable Long id) {
+        return ResponseEntity.ok(deploymentService.deploy(id));
     }
 }

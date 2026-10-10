@@ -1,4 +1,4 @@
-package com.monji.projects.lovable_clone.dto.usage;
+package com.monji.projects.lovable_clone.dto.plan;
 
 public record PlanLimitsResponse(
         String planName,

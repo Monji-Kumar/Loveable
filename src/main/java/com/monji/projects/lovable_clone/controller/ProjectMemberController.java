@@ -21,27 +21,23 @@ public class ProjectMemberController {
     private final ProjectMemberService projectMemberService;
 
     @GetMapping
-    public ResponseEntity<List<MemberResponse>> getMembers(@PathVariable Long projectId) {
-        Long userId = 1L;
-        return ResponseEntity.ok(projectMemberService.getAllProjectMembers(userId, projectId));
+    public ResponseEntity<List<MemberResponse>> getProjectMembers(@PathVariable Long projectId) {
+        return ResponseEntity.ok(projectMemberService.getAllProjectMembers(projectId));
     }
 
     @PostMapping
     public ResponseEntity<MemberResponse> inviteMembers(@PathVariable Long projectId, @RequestBody InviteMemberRequest inviteMemberRequest) {
-        Long userId = 1L;
-        return ResponseEntity.status(HttpStatus.CREATED).body(projectMemberService.inviteMember(userId, projectId, inviteMemberRequest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(projectMemberService.inviteMember(projectId, inviteMemberRequest));
     }
 
     @PatchMapping(value = "update-member-role")
     public ResponseEntity<MemberResponse> updateMemberRole(@PathVariable Long projectId, @RequestParam Long memberId,
                                                            @RequestBody UpdateMemberRoleRequest updateMemberRoleRequest) {
-        Long userId = 1L;
-        return ResponseEntity.status(HttpStatus.CREATED).body(projectMemberService.updateMemberRole(userId, memberId, projectId, updateMemberRoleRequest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(projectMemberService.updateMemberRole(memberId, projectId, updateMemberRoleRequest));
     }
 
     @DeleteMapping(value = "delete-member")
     public ResponseEntity<MemberResponse> deleteMemberRole(@PathVariable Long projectId, @RequestParam Long memberId) {
-        Long userId = 1L;
-        return ResponseEntity.ok(projectMemberService.deleteProjectMember(userId, memberId, projectId));
+        return ResponseEntity.ok(projectMemberService.deleteProjectMember(memberId, projectId));
     }
 }

@@ -1,6 +1,6 @@
 package com.monji.projects.lovable_clone.service.usageservice;
 
-import com.monji.projects.lovable_clone.dto.usage.PlanLimitsResponse;
+import com.monji.projects.lovable_clone.dto.plan.PlanLimitsResponse;
 import com.monji.projects.lovable_clone.dto.usage.UsageTodayResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

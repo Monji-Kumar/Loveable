@@ -8,17 +8,19 @@ import com.monji.projects.lovable_clone.entity.project.Project;
 import java.util.List;
 
 public interface ProjectService {
-    List<ProjectSummaryResponse> getAllProjects(Long userId);
+    List<ProjectSummaryResponse> getAllProjects();
 
     ProjectResponse getProjectById(Long id);
 
     Project findProjectById(Long id);
 
-    ProjectResponse getUserProjectById(Long userId, Long id);
+    ProjectResponse getUserProjectById(Long id);
 
-    ProjectResponse createUserProject(Long userId, ProjectRequest projectRequest);
+    ProjectResponse createUserProject(ProjectRequest projectRequest);
 
-    ProjectResponse updateUserProject(Long userId, Long projectId, ProjectRequest projectRequest);
+    ProjectResponse updateUserProject(Long projectId, ProjectRequest projectRequest);
 
-    ProjectResponse deleteUserProject(Long userId, Long id);
+    ProjectResponse deleteUserProject(Long id);
+
+    void softDelete(Long id);
 }

@@ -4,11 +4,22 @@ import com.monji.projects.lovable_clone.dto.subscription.CheckoutRequest;
 import com.monji.projects.lovable_clone.dto.subscription.CheckoutResponse;
 import com.monji.projects.lovable_clone.dto.subscription.PortalResponse;
 import com.monji.projects.lovable_clone.dto.subscription.SubscriptionResponse;
+import com.monji.projects.lovable_clone.enums.SubscriptionStatus;
+
+import java.time.Instant;
 
 public interface SubscriptionService {
-    SubscriptionResponse getCurrentSubscription(Long userId);
+    SubscriptionResponse getCurrentSubscription();
 
-    CheckoutResponse createCheckoutSessionUrl(Long userId, CheckoutRequest checkoutRequest);
+    void activateSubscription(Long userId, Long planId, String subscriptionId, String customerId);
 
-    PortalResponse openCustomerPortal(Long userId);
+    void updateSubscription(String gatewaySubscriptionId, SubscriptionStatus status, Instant periodStart, Instant periodEnd, Boolean cancelAtPeriodEnd, Long planId);
+
+    void cancelSubscription(String gatewaySubscriptionId);
+
+    void renewSubscriptionPeriod(String subId, Instant periodStart, Instant periodEnd);
+
+    void markSubscriptionPastDue(String subId);
+
+    boolean canCreateNewProject();
 }
