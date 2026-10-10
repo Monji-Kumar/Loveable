@@ -1,4 +1,4 @@
-package com.monji.projects.lovable_clone.service;
+package com.monji.projects.lovable_clone.service.authservice;
 
 import com.monji.projects.lovable_clone.dto.auth.AuthResponse;
 import com.monji.projects.lovable_clone.dto.auth.LoginRequest;

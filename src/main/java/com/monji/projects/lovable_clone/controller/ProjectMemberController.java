@@ -3,7 +3,7 @@ package com.monji.projects.lovable_clone.controller;
 import com.monji.projects.lovable_clone.dto.member.InviteMemberRequest;
 import com.monji.projects.lovable_clone.dto.member.MemberResponse;
 import com.monji.projects.lovable_clone.dto.member.UpdateMemberRoleRequest;
-import com.monji.projects.lovable_clone.service.ProjectMemberService;
+import com.monji.projects.lovable_clone.service.projectmemberservice.ProjectMemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

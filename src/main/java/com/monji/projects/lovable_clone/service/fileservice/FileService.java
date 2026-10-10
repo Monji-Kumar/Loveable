@@ -1,4 +1,4 @@
-package com.monji.projects.lovable_clone.service;
+package com.monji.projects.lovable_clone.service.fileservice;
 
 import com.monji.projects.lovable_clone.dto.file.FileContentResponse;
 import com.monji.projects.lovable_clone.dto.file.FileNode;

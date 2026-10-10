@@ -2,7 +2,7 @@ package com.monji.projects.lovable_clone.controller;
 
 import com.monji.projects.lovable_clone.dto.usage.PlanLimitsResponse;
 import com.monji.projects.lovable_clone.dto.usage.UsageTodayResponse;
-import com.monji.projects.lovable_clone.service.UsageService;
+import com.monji.projects.lovable_clone.service.usageservice.UsageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

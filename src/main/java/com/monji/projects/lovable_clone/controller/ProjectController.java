@@ -3,7 +3,7 @@ package com.monji.projects.lovable_clone.controller;
 import com.monji.projects.lovable_clone.dto.project.ProjectRequest;
 import com.monji.projects.lovable_clone.dto.project.ProjectResponse;
 import com.monji.projects.lovable_clone.dto.project.ProjectSummaryResponse;
-import com.monji.projects.lovable_clone.service.ProjectService;
+import com.monji.projects.lovable_clone.service.projectservice.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

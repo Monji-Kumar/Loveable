@@ -1,4 +1,4 @@
-package com.monji.projects.lovable_clone.service;
+package com.monji.projects.lovable_clone.service.planservice;
 
 import com.monji.projects.lovable_clone.dto.plan.PlanResponse;
 

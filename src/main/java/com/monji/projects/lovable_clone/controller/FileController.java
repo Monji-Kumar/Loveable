@@ -2,8 +2,7 @@ package com.monji.projects.lovable_clone.controller;
 
 import com.monji.projects.lovable_clone.dto.file.FileContentResponse;
 import com.monji.projects.lovable_clone.dto.file.FileNode;
-import com.monji.projects.lovable_clone.dto.file.FileTreeResponse;
-import com.monji.projects.lovable_clone.service.FileService;
+import com.monji.projects.lovable_clone.service.fileservice.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

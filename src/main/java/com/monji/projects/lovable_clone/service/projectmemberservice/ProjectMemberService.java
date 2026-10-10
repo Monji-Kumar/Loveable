@@ -1,4 +1,4 @@
-package com.monji.projects.lovable_clone.service;
+package com.monji.projects.lovable_clone.service.projectmemberservice;
 
 import com.monji.projects.lovable_clone.dto.member.InviteMemberRequest;
 import com.monji.projects.lovable_clone.dto.member.MemberResponse;
