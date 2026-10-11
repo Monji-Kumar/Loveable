@@ -9,6 +9,8 @@ import com.monji.projects.lovable_clone.enums.SubscriptionStatus;
 import java.time.Instant;
 
 public interface SubscriptionService {
+    SubscriptionResponse getCurrentSubscription(Long userId);
+
     SubscriptionResponse getCurrentSubscription();
 
     void activateSubscription(Long userId, Long planId, String subscriptionId, String customerId);

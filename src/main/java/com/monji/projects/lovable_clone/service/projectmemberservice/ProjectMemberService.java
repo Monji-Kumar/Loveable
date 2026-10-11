@@ -7,11 +7,11 @@ import com.monji.projects.lovable_clone.dto.member.UpdateMemberRoleRequest;
 import java.util.List;
 
 public interface ProjectMemberService {
-    List<MemberResponse> getAllProjectMembers(Long userId, Long projectId);
+    List<MemberResponse> getAllProjectMembers(Long projectId);
 
-    MemberResponse inviteMember(Long userId, Long projectId, InviteMemberRequest inviteMemberRequest);
+    MemberResponse inviteMember(Long projectId, InviteMemberRequest inviteMemberRequest);
 
-    MemberResponse updateMemberRole(Long userId, Long memberId, Long projectId, UpdateMemberRoleRequest updateMemberRoleRequest);
+    MemberResponse updateMemberRole(Long memberId, Long projectId, UpdateMemberRoleRequest updateMemberRoleRequest);
 
-    MemberResponse deleteProjectMember(Long userId, Long memberId, Long projectId);
+    void removeProjectMember(Long memberId, Long projectId);
 }
