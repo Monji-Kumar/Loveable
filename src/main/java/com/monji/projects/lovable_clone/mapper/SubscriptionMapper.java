@@ -10,8 +10,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface SubscriptionMapper {
 
-    @Mapping(target = "PlanLimitsResponse.planName", source = "plan")
     SubscriptionResponse toSubscriptionResponse(Subscription subscription);
 
+    @Mapping(target = "planName", source = "name")
     PlanLimitsResponse toPlanResponse(Plan plan);
 }

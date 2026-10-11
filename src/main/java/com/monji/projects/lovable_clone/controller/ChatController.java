@@ -4,7 +4,7 @@ import com.monji.projects.lovable_clone.dto.chat.ChatRequest;
 import com.monji.projects.lovable_clone.dto.chat.ChatResponse;
 import com.monji.projects.lovable_clone.dto.chat.StreamResponse;
 import com.monji.projects.lovable_clone.service.aigenerationservice.AiGenerationService;
-import com.openai.services.blocking.ChatService;
+import com.monji.projects.lovable_clone.service.chatservice.ChatService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

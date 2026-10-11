@@ -11,5 +11,7 @@ import java.util.List;
 public interface ChatMapper {
 
     @Mapping(target = "events", source = "chatEvents")
+    ChatResponse toResponse(ChatMessage message);
+
     List<ChatResponse> fromListOfChatMessage(List<ChatMessage> chatMessageList);
 }
