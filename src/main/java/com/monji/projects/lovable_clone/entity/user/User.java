@@ -28,7 +28,6 @@ public class User implements UserDetails {
 
     @Column(nullable = false, unique = true)
     String username;
-    String password;
 
     @Column(nullable = false)
     String name;

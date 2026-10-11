@@ -17,7 +17,9 @@ import com.monji.projects.lovable_clone.repository.user.UserRepository;
 import com.monji.projects.lovable_clone.security.AuthUtil;
 import com.monji.projects.lovable_clone.service.projecttemplateservice.ProjectTemplateService;
 import com.monji.projects.lovable_clone.service.subscriptionservice.SubscriptionService;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -27,8 +29,8 @@ import java.time.Instant;
 import java.util.List;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Transactional
 public class ProjectServiceImpl implements ProjectService {
 
@@ -56,6 +58,7 @@ public class ProjectServiceImpl implements ProjectService {
         Project project = Project.builder()
                 .name(request.name())
                 .isPublic(false)
+                .owner(owner)
                 .build();
         project = projectRepository.save(project);
 
@@ -95,8 +98,8 @@ public class ProjectServiceImpl implements ProjectService {
         return projectMapper.toProjectSummaryResponse(projectWithRole.getProject(), projectWithRole.getRole());
     }
 
-    @PreAuthorize("@security.canEditProject(#projectId)")
     @Override
+    @PreAuthorize("@security.canEditProject(#projectId)")
     public ProjectResponse updateProject(Long projectId, ProjectRequest request) {
         Long userId = authUtil.getCurrentUserId();
         Project project = getAccessibleProjectById(projectId, userId);

@@ -14,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 @Configuration
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 public class WebSecurityConfig {
 
     private final HandlerExceptionResolver handlerExceptionResolver;
+    private final JwtAuthFilter jwtAuthFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -34,7 +36,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/auth/**", "*/webhooks/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticaltionFilter.class)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exceptionHandlingConfigurer ->
                         exceptionHandlingConfigurer.accessDeniedHandler((request, response, accessDeniedException) -> {
                     handlerExceptionResolver.resolveException(request, response, null, accessDeniedException);

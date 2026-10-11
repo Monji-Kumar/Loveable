@@ -8,7 +8,9 @@ import com.monji.projects.lovable_clone.error.BadRequestException;
 import com.monji.projects.lovable_clone.mapper.UserMapper;
 import com.monji.projects.lovable_clone.repository.user.UserRepository;
 import com.monji.projects.lovable_clone.security.AuthUtil;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE,  makeFinal = true)
 public class AuthServiceImpl implements AuthService{
     UserRepository userRepository;
     UserMapper userMapper;

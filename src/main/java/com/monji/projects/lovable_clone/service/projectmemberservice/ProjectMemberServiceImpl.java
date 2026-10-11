@@ -12,7 +12,9 @@ import com.monji.projects.lovable_clone.repository.project.ProjectMemberReposito
 import com.monji.projects.lovable_clone.repository.project.ProjectRepository;
 import com.monji.projects.lovable_clone.repository.user.UserRepository;
 import com.monji.projects.lovable_clone.security.AuthUtil;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Transactional
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ProjectMemberServiceImpl implements ProjectMemberService {
     ProjectMemberRepository projectMemberRepository;
     ProjectRepository projectRepository;

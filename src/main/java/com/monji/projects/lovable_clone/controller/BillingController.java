@@ -5,6 +5,7 @@ import com.monji.projects.lovable_clone.dto.subscription.CheckoutRequest;
 import com.monji.projects.lovable_clone.dto.subscription.CheckoutResponse;
 import com.monji.projects.lovable_clone.dto.subscription.PortalResponse;
 import com.monji.projects.lovable_clone.dto.subscription.SubscriptionResponse;
+import com.monji.projects.lovable_clone.service.paymentprocessor.PaymentProcessor;
 import com.monji.projects.lovable_clone.service.planservice.PlanService;
 import com.monji.projects.lovable_clone.service.subscriptionservice.SubscriptionService;
 import com.stripe.exception.SignatureVerificationException;
@@ -14,6 +15,7 @@ import com.stripe.model.Review;
 import com.stripe.model.StripeObject;
 import com.stripe.model.checkout.Session;
 import com.stripe.net.Webhook;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,15 +51,15 @@ public class BillingController {
     }
 
     @PostMapping(value = "/api/payments/checkout")
-    public ResponseEntity<CheckoutResponse> createCheckoutResponse(@RequestBody CheckoutRequest checkoutRequest) {
+    public ResponseEntity<CheckoutResponse> createCheckoutResponse(@Valid @RequestBody CheckoutRequest checkoutRequest) {
         Long userId = 1L;
-        return ResponseEntity.ok(paymentProcessor.createCheckoutSessionUrl(request));
+        return ResponseEntity.ok(paymentProcessor.createCheckoutSessionUrl(checkoutRequest));
     }
 
     @PostMapping(value = "/api/payments/portal")
     public ResponseEntity<PortalResponse> openCustomerPortal() {
         Long userId = 1L;
-        return ResponseEntity.ok(paymentProcessor.openCustomerPortal(userId));
+        return ResponseEntity.ok(paymentProcessor.openCustomerPortal());
     }
 
     //WebHook
@@ -92,7 +94,7 @@ public class BillingController {
             }
 
             //Pass to processor
-            paymentProcessor.handleWebhookContent(event.getType(), stripeObject, metaData);
+            paymentProcessor.handleWebhookEvent(event.getType(), stripeObject, metaData);
             return ResponseEntity.ok().build();
         } catch (SignatureVerificationException e) {
             throw new RuntimeException(e);

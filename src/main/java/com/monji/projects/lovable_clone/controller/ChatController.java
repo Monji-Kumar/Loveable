@@ -2,8 +2,10 @@ package com.monji.projects.lovable_clone.controller;
 
 import com.monji.projects.lovable_clone.dto.chat.ChatRequest;
 import com.monji.projects.lovable_clone.dto.chat.ChatResponse;
-import com.openai.core.http.StreamResponse;
+import com.monji.projects.lovable_clone.dto.chat.StreamResponse;
+import com.monji.projects.lovable_clone.service.aigenerationservice.AiGenerationService;
 import com.openai.services.blocking.ChatService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,7 @@ public class ChatController {
     private final AiGenerationService aiGenerationService;
 
     @PostMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<ServerSentEvent<StreamResponse>> streamChat(@RequestBody ChatRequest chatRequest) {
+    public Flux<ServerSentEvent<com.monji.projects.lovable_clone.dto.chat.StreamResponse>> streamChat(@Valid @RequestBody ChatRequest chatRequest) {
         return aiGenerationService.streamResponse(chatRequest.message(), chatRequest.projectId())
                 .map(data -> ServerSentEvent.<StreamResponse>builder()
                         .data(data).build());

@@ -13,12 +13,12 @@ import java.util.List;
 @Slf4j
 public class FileServiceImpl implements FileService {
     @Override
-    public List<FileNode> getFileTree(Long userId, Long projectId) {
+    public List<FileNode> getFileTree(Long projectId) {
         return List.of();
     }
 
     @Override
-    public FileContentResponse getFileContent(Long userId, Long projectId, String path) {
+    public FileContentResponse getFileContent(Long projectId, String path) {
         return null;
     }
 }

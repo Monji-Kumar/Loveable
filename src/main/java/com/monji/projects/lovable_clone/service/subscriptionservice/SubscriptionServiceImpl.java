@@ -41,25 +41,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public SubscriptionResponse getCurrentSubscription() {
         Long userId = authUtil.getCurrentUserId();
 
-        var currentSubscription = subscriptionRepository.findByUserIdAndStatusIn(userId, Set.of(SubscriptionStatus.ACTIVE, SubscriptionStatus.PAST_DUE, SubscriptionStatus.TRIALING)).OrElse(new Subscription());
+        var currentSubscription = subscriptionRepository.findByUserIdAndStatusIn(userId, Set.of(SubscriptionStatus.ACTIVE, SubscriptionStatus.PAST_DUE, SubscriptionStatus.TRIALING)).orElse(new Subscription());
 
         return subscriptionMapper.toSubscriptionResponse(currentSubscription);
     }
-
-//    @Override
-//    public CheckoutResponse createCheckoutSessionUrl(Long userId, CheckoutRequest checkoutRequest) {
-//        return null;
-//    }
-//
-//    @Override
-//    public PortalResponse openCustomerPortal(Long userId) {
-//        return null;
-//    }
-//
-//    @Override
-//    public SubscriptionResponse getCurrentSubscription() {
-//        return null;
-//    }
 
     @Override
     public void activateSubscription(Long userId, Long planId, String subscriptionId, String customerId) {

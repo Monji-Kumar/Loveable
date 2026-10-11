@@ -9,26 +9,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.List;
 
 public interface ProjectService {
-    List<ProjectSummaryResponse> getAllProjects();
-
-    ProjectResponse getProjectById(Long id);
-
-    Project findProjectById(Long id);
-
-    ProjectResponse createProject(ProjectRequest request);
-
     List<ProjectSummaryResponse> getUserProjects();
 
     ProjectSummaryResponse getUserProjectById(Long id);
 
-    ProjectResponse createUserProject(ProjectRequest projectRequest);
+    ProjectResponse createProject(ProjectRequest request);
 
-    ProjectResponse updateUserProject(Long projectId, ProjectRequest projectRequest);
-
-    ProjectResponse deleteUserProject(Long id);
-
-    @PreAuthorize("@security.canEditProject(#projectId)")
-    ProjectResponse updateProject(Long projectId, ProjectRequest request);
+    ProjectResponse updateProject(Long id, ProjectRequest request);
 
     void softDelete(Long id);
 }
