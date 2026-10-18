@@ -24,32 +24,32 @@ spring:
 
   ai:
     openai:
-      api-key:
-        base-url: https://openrouter.ai/api
-        chat:
-          options:
+      api-key: ${OPENROUTER_API_KEY}
+      base-url: https://openrouter.ai/api
+      chat:
+        options:
 #            model: x-ai/grok-code-fast-1
-            model: google/gemini-3-flash-preview
-            temperature: 0.0
+#          model: google/gemini-3-flash-preview
+          model: nvidia/nemotron-3.5-lightning:free
+          temperature: 0.0
 
-  jwt:
-    secret-key: as9b7aodlbjfkluosfd789ujeklfnlsduf90b8ha908w74tuqijvlckajdl
+jwt:
+  secret-key: ${JWT_SECRET_KEY:as9b7aodlbjfkluosfd789ujeklfnlsduf90b8ha908w74tuqijvlckajdl}
 
-  stripe:
-    api:
-      secret:
-    webhook:
-      secret:
+stripe:
+  api:
+    secret: ${STRIPE_API_SECRET:${STRIPE_SECRET_KEY}}
+  webhook:
+    secret: ${STRIPE_WEBHOOK_SECRET:whsec_a2fc4351772f06d8835c5c1b009a6a21c5fb61100401188d293fc3088a71e2a}
 
-  client.url: http://localhost:8080
+client.url: http://localhost:8080
 
-  logging:
-    level:
-      org.springgramework.ai:
-        chat.client: DEBUG
+logging:
+  level:
+    org.springframework.ai.chat.client: DEBUG
 
-  mino:
-    url: http://localhost:9000
-    access_key: minioadmin
-    secret-key: minioadmin123
-    project-bucket: projects
+minio:
+  url: http://localhost:9000
+  access-key: minioadmin
+  secret-key: minioadmin123
+  project-bucket: projects

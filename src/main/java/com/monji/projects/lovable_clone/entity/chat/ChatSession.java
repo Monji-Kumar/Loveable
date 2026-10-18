@@ -28,6 +28,7 @@ public class ChatSession {
     Project project;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @MapsId("userId")
     @JoinColumn(name = "user_id",  nullable = false, updatable = false)
     User user;
 
