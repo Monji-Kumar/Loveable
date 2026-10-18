@@ -3,9 +3,9 @@ spring:
     name: lovable-clone
     description: this is application
   datasource:
-    url: jdbc:postgresql://localhost:9010/pgvector-test
-    username: user
-    password: password
+    url: ${DB_URL:jdbc:postgresql://localhost:9010/pgvector-test}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -19,37 +19,35 @@ spring:
 
   data:
     redis:
-      host: localhost
-      port: 6379
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
 
   ai:
     openai:
       api-key: ${OPENROUTER_API_KEY}
-      base-url: https://openrouter.ai/api
+      base-url: ${OPENROUTER_BASE_URL:https://openrouter.ai/api}
       chat:
         options:
-#            model: x-ai/grok-code-fast-1
-#          model: google/gemini-3-flash-preview
-          model: nvidia/nemotron-3.5-lightning:free
+          model: ${CHAT_MODEL_IN_USE:nvidia/nemotron-3.5-lightning:free}
           temperature: 0.0
 
 jwt:
-  secret-key: ${JWT_SECRET_KEY:as9b7aodlbjfkluosfd789ujeklfnlsduf90b8ha908w74tuqijvlckajdl}
+  secret-key: ${JWT_SECRET_KEY}
 
 stripe:
   api:
-    secret: ${STRIPE_API_SECRET:${STRIPE_SECRET_KEY}}
+    secret: ${STRIPE_API_SECRET}
   webhook:
-    secret: ${STRIPE_WEBHOOK_SECRET:whsec_a2fc4351772f06d8835c5c1b009a6a21c5fb61100401188d293fc3088a71e2a}
+    secret: ${STRIPE_WEBHOOK_SECRET}
 
-client.url: http://localhost:8080
+client.url: ${CLIENT_URL:http://localhost:8080}
 
 logging:
   level:
     org.springframework.ai.chat.client: DEBUG
 
 minio:
-  url: http://localhost:9000
-  access-key: minioadmin
-  secret-key: minioadmin123
-  project-bucket: projects
+  url: ${MINIO_URL:http://localhost:9000}
+  access-key: ${MINIO_ACCESS_KEY}
+  secret-key: ${MINIO_SECRET_KEY}
+  project-bucket: ${MINIO_PROJECT_BUCKET:projects}
