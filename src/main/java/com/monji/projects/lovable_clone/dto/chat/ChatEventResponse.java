@@ -1,5 +1,7 @@
 package com.monji.projects.lovable_clone.dto.chat;
 
+import com.monji.projects.lovable_clone.enums.ChatEventType;
+
 public record ChatEventResponse(
         Long id,
         ChatEventType type,

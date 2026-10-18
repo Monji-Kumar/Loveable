@@ -28,7 +28,6 @@ public class User implements UserDetails {
 
     @Column(nullable = false, unique = true)
     String username;
-    String password;
 
     @Column(nullable = false)
     String name;
@@ -48,6 +47,11 @@ public class User implements UserDetails {
     Instant updatedAt;
 
     Instant deletedAt; //soft delete
+
+    @Override
+    public String getPassword() {
+        return passwordHash;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

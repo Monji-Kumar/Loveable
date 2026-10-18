@@ -1,0 +1,643 @@
+{
+  "info": {
+    "name": "Lovable Clone — Local API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Matches the current Spring controllers. Run signup/login first to capture the JWT. Set planId from your database, memberId from the member response, and filePath to an existing file. AI, billing, deployment, and cleanup are manual requests; they can incur provider usage or change resources. Stripe webhooks should normally be sent by Stripe CLI. No real credentials are included."
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "username",
+      "value": "manoj@example.com",
+      "type": "string"
+    },
+    {
+      "key": "password",
+      "value": "ExamplePass@123",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "projectId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "memberId",
+      "value": "2",
+      "type": "string"
+    },
+    {
+      "key": "inviteeUsername",
+      "value": "member@example.com",
+      "type": "string"
+    },
+    {
+      "key": "planId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "filePath",
+      "value": "src/App.jsx",
+      "type": "string"
+    },
+    {
+      "key": "stripeSignature",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 Authentication",
+      "item": [
+        {
+          "name": "Sign up",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/auth/sign-up",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Manoj\",\n  \"username\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "  const data = pm.response.json();",
+                  "  if (data.token != null) pm.collectionVariables.set(\"token\", String(data.token));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/auth/login",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "  const data = pm.response.json();",
+                  "  if (data.token != null) pm.collectionVariables.set(\"token\", String(data.token));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "My profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/auth/me",
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 Projects",
+      "item": [
+        {
+          "name": "Create project — captures projectId",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/projects/create-project",
+            "description": "Requires MinIO template bucket and files.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Postman Demo\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "  const data = pm.response.json();",
+                  "  if (data.id != null) pm.collectionVariables.set(\"projectId\", String(data.id));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "My projects",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/projects/get-my-projects",
+            "description": ""
+          }
+        },
+        {
+          "name": "Get project",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/projects/get-project?id={{projectId}}",
+            "description": ""
+          }
+        },
+        {
+          "name": "Update project",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/projects/update-project?id={{projectId}}",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Postman Demo Updated\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 Members",
+      "item": [
+        {
+          "name": "List members",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/projects/{{projectId}}/members",
+            "description": ""
+          }
+        },
+        {
+          "name": "Invite existing user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/projects/{{projectId}}/members",
+            "description": "Invitee must already be registered. Requires OWNER permissions.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"{{inviteeUsername}}\",\"role\":\"VIEWER\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "  const data = pm.response.json();",
+                  "  if (data.id != null) pm.collectionVariables.set(\"memberId\", String(data.id));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update member role",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/projects/{{projectId}}/members/update-member-role?memberId={{memberId}}",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"role\":\"EDITOR\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 Files",
+      "item": [
+        {
+          "name": "File tree",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/projects/{{projectId}}/files/all",
+            "description": ""
+          }
+        },
+        {
+          "name": "File content",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/projects/{{projectId}}/files/{{filePath}}",
+            "description": "filePath has no leading slash. FileService currently returns stub results."
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 Chat — manual",
+      "item": [
+        {
+          "name": "Chat history",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/chat/projects?projectId={{projectId}}",
+            "description": ""
+          }
+        },
+        {
+          "name": "Generate code — SSE",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/chat/stream",
+            "description": "Requires a valid AI provider key. Sends a real model request and can update project files. Run manually.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"message\":\"Create a simple landing page for a coffee shop.\",\"projectId\":{{projectId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 Billing — sandbox",
+      "item": [
+        {
+          "name": "List plans",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/plans",
+            "description": ""
+          }
+        },
+        {
+          "name": "My subscription",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/my-subscription",
+            "description": ""
+          }
+        },
+        {
+          "name": "Create checkout URL",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/payments/checkout",
+            "description": "Requires Stripe sandbox key and a database plan linked to a sandbox recurring price. Open returned URL in your browser.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"planId\":{{planId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Customer portal URL",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/payments/portal",
+            "description": "Requires an existing Stripe customer and configured sandbox portal."
+          }
+        }
+      ]
+    },
+    {
+      "name": "07 Usage",
+      "item": [
+        {
+          "name": "Today's usage",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/usage/today",
+            "description": "Current controller uses user ID 1; implementation is unfinished."
+          }
+        },
+        {
+          "name": "Plan limits",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/usage/limits",
+            "description": "Current controller uses user ID 1; implementation is unfinished."
+          }
+        }
+      ]
+    },
+    {
+      "name": "08 Deployment — manual",
+      "item": [
+        {
+          "name": "Deploy project",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/projects/{{projectId}}/deploy",
+            "description": "Creates or claims Kubernetes resources and registers a Redis route. Requires configured runner pool; run manually."
+          }
+        }
+      ]
+    },
+    {
+      "name": "09 Cleanup — destructive",
+      "item": [
+        {
+          "name": "Remove member",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/projects/{{projectId}}/members/delete-member?memberId={{memberId}}",
+            "description": "Removes the specified user from the project. Run only deliberately."
+          }
+        },
+        {
+          "name": "Soft-delete project",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/projects/delete-project?id={{projectId}}",
+            "description": "Soft-deletes the selected project. Run last, manually."
+          }
+        }
+      ]
+    },
+    {
+      "name": "10 Stripe webhook — advanced",
+      "item": [
+        {
+          "name": "Signed webhook — advanced template",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Stripe-Signature",
+                "value": "{{stripeSignature}}"
+              }
+            ],
+            "url": "{{baseUrl}}/webhooks/payment",
+            "description": "Use Stripe CLI for normal testing. This template requires a valid timestamped Stripe-Signature over the EXACT raw body using the endpoint secret. A dummy signature is rejected. The example event type is intentionally unhandled.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"id\":\"evt_postman_example\",\"object\":\"event\",\"type\":\"postman.unhandled\",\"data\":{\"object\":{}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

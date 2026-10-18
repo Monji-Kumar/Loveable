@@ -38,6 +38,7 @@ public class ProjectMemberController {
 
     @DeleteMapping(value = "delete-member")
     public ResponseEntity<MemberResponse> deleteMemberRole(@PathVariable Long projectId, @RequestParam Long memberId) {
-        return ResponseEntity.ok(projectMemberService.deleteProjectMember(memberId, projectId));
+        projectMemberService.removeProjectMember(memberId, projectId);
+        return ResponseEntity.noContent().build();
     }
 }
