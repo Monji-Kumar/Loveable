@@ -3,6 +3,7 @@ package com.monji.projects.lovable_clone.mapper;
 import com.monji.projects.lovable_clone.dto.project.ProjectResponse;
 import com.monji.projects.lovable_clone.dto.project.ProjectSummaryResponse;
 import com.monji.projects.lovable_clone.entity.project.Project;
+import com.monji.projects.lovable_clone.enums.ProjectRole;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

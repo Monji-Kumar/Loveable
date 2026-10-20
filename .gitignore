@@ -61,3 +61,8 @@ ehthumbs.db
 
 ### Claude Code (personal settings) ###
 .claude/settings.local.json
+
+### Local env scripts (contain secrets) ###
+setenv.bat
+setenv.sh
+setenv.ps1

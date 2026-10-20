@@ -4,23 +4,18 @@ import com.monji.projects.lovable_clone.dto.project.ProjectRequest;
 import com.monji.projects.lovable_clone.dto.project.ProjectResponse;
 import com.monji.projects.lovable_clone.dto.project.ProjectSummaryResponse;
 import com.monji.projects.lovable_clone.entity.project.Project;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
 public interface ProjectService {
-    List<ProjectSummaryResponse> getAllProjects();
+    List<ProjectSummaryResponse> getUserProjects();
 
-    ProjectResponse getProjectById(Long id);
+    ProjectSummaryResponse getUserProjectById(Long id);
 
-    Project findProjectById(Long id);
+    ProjectResponse createProject(ProjectRequest request);
 
-    ProjectResponse getUserProjectById(Long id);
-
-    ProjectResponse createUserProject(ProjectRequest projectRequest);
-
-    ProjectResponse updateUserProject(Long projectId, ProjectRequest projectRequest);
-
-    ProjectResponse deleteUserProject(Long id);
+    ProjectResponse updateProject(Long id, ProjectRequest request);
 
     void softDelete(Long id);
 }
